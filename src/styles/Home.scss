@@ -1,0 +1,210 @@
+$primary-color: black;
+$background-color: #ebeee6;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  background-color: $background-color;
+  box-sizing: border-box;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .upload-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .upload-btn {
+    padding: 12px 20px;
+    border: none;
+    background-color: $primary-color;
+    color: $background-color;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    .file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+
+  .file-list {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 500px;
+    overflow-y: auto;
+
+    h3 {
+      font-size: 20px;
+      color: $primary-color;
+      margin-bottom: 10px;
+      border-bottom: 2px solid $primary-color;
+      position: sticky;
+      top: 0;
+      background-color: $background-color;
+      z-index: 2;
+      padding-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      .file-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $background-color;
+        border-bottom: 1px solid $primary-color;
+        padding: 12px 20px;
+        font-size: 16px;
+        color: $primary-color;
+        gap: 10px;
+
+        &:hover {
+          background-color: $primary-color;
+          color: $background-color;
+        }
+
+        .file-preview {
+          flex: 1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .view-btn {
+          padding: 6px 12px;
+          border: 1px solid $primary-color;
+          background-color: $background-color;
+          color: $primary-color;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $primary-color;
+            color: $background-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: $primary-color;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+
+      .type-btn {
+        padding: 10px;
+        font-size: 16px;
+        background-color: $primary-color;
+        color: $background-color;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+
+    .close-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: $primary-color;
+      color: $background-color;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: $primary-color;
+      color: $background-color;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+
+    button .disabled {
+      background-color: gray;
+    }
+  }
+}

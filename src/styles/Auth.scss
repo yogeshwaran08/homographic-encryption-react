@@ -1,0 +1,87 @@
+$primary-color: black;
+$background-color: white;
+
+.auth-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  .auth-area {
+    background-color: $background-color;
+    border: 1px solid $primary-color;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1;
+  }
+
+  h3 {
+    font-size: 24px;
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-field {
+    width: 100%; /* Ensures inputs take full width */
+  }
+
+  input {
+    width: 100%; /* Ensure inputs stretch across the available space */
+    padding: 10px;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    font-size: 16px;
+    color: $primary-color;
+    box-sizing: border-box; /* Ensures padding doesn't affect width calculation */
+  }
+
+  input::placeholder {
+    color: $primary-color;
+  }
+
+  span {
+    color: blue;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button {
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: $primary-color;
+    color: $background-color;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Makes the button stretch to full width */
+
+    &:hover {
+      background-color: $primary-color;
+      box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  /* Left-align error messages */
+  .error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    text-align: left; /* Aligns the error message to the left */
+  }
+}
