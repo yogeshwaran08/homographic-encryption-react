@@ -14,7 +14,6 @@ const useUserStore = create<IUserStore>((set) => ({
   fetchLocal: () => {
     try {
       const storedUser = localStorage.getItem("user");
-      console.log("stored", storedUser);
       if (storedUser) {
         set({ user: JSON.parse(storedUser) });
       }

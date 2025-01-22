@@ -20,7 +20,7 @@ const initialValues = {
   username: "",
   password: "",
   confirmPassword: "",
-};
+};                  
 
 const Register = () => {
   const navigate = useNavigate();
@@ -35,8 +35,8 @@ const Register = () => {
     if (res.type === "sucess") {
       setUser({
         username: res.data?.username,
-        token: res.data?.token,
         id: res.data?.id,
+        access_token: res.data?.access_token,
       });
       navigate("/home");
     }

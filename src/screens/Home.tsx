@@ -22,6 +22,7 @@ const Home = () => {
       const fileContent = await uploadedFile.text();
       setFiles([...files, { name: uploadedFile.name, content: fileContent }]);
       setShowType(true); // Show model type selection
+      event.target.value = "";
     }
   };
 
@@ -36,7 +37,7 @@ const Home = () => {
   };
 
   const handleSelectModel = (model: string) => {
-    setSelectedModel(model); // Set the selected model
+    setSelectedModel(model);
 
     toast.promise(handleEncrypt(model), {
       pending: "Encrypting data",
@@ -46,14 +47,14 @@ const Home = () => {
   };
 
   const handleEncrypt = async (model: string) => {
-    console.log(model);
     if (user?.access_token) {
       const url = `user/uploads`;
       const data = {
-        content: files[files.length - 1]?.content || "", // Use the last uploaded file content
+        content: files[files.length - 1]?.content || "",
+        mode: model,
       };
 
-      setLoading(true); // Set loading state to true when the request starts
+      setLoading(true);
 
       try {
         const res = await auth({
@@ -63,41 +64,44 @@ const Home = () => {
           data,
         });
 
-        setEncryptionResult(res.data);
+        if (res.type == "sucess") {
+          setEncryptionResult(res.data);
+          if (res.data?.encrypted_content) {
+            const fileContent = res.data.encrypted_content.join("\n");
+            const blob = new Blob([fileContent], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "encrypted_content.txt";
+            link.click();
+          }
+        }
       } catch (error) {
         console.error("Error encrypting the data:", error);
       } finally {
-        setLoading(false); // Set loading state to false when the request finishes
+        setLoading(false);
       }
     }
   };
 
   useEffect(() => {
     if (files.length > 0) {
-      setShowType(true); // Show model type selection when a file is uploaded
+      setShowType(true);
     }
   }, [files]);
-
-  useEffect(() => {
-    console.log("encryption", encryptionResult);
-  }, [encryptionResult]);
 
   return (
     <div className="home-screen">
       <div className="header">
         <h3>Hi {user?.username || "User"}</h3>
         <div className="upload-container">
-          <button
-            className="upload-btn"
-            disabled={loading} // Disable the button if loading
-          >
+          <button className="upload-btn" disabled={loading}>
             Upload .txt file
             <input
               type="file"
               accept=".txt"
               onChange={handleFileUpload}
               className="file-input"
-              disabled={loading} // Disable the input if loading
+              disabled={loading}
             />
           </button>
         </div>
@@ -129,10 +133,7 @@ const Home = () => {
         <div className="modal">
           <div className="modal-content">
             <textarea readOnly value={modalContent}></textarea>
-            <button
-              onClick={handleCloseModal}
-              disabled={loading} // Disable the button if loading
-            >
+            <button onClick={handleCloseModal} disabled={loading}>
               Close
             </button>
           </div>
@@ -146,37 +147,37 @@ const Home = () => {
             <div className="button-grid">
               <button
                 className="type-btn"
-                onClick={() => handleSelectModel("Multi Key")}
-                disabled={loading} // Disable the button if loading
+                onClick={() => handleSelectModel("mkhe")}
+                disabled={loading}
               >
-                Multi Key
+                Multi Key encryption
               </button>
               <button
                 className="type-btn"
-                onClick={() => handleSelectModel("Single Key")}
-                disabled={loading} // Disable the button if loading
+                onClick={() => handleSelectModel("skhe")}
+                disabled={loading}
               >
-                Single Key
+                Single Key encryption
               </button>
               <button
                 className="type-btn"
-                onClick={() => handleSelectModel("Another Option")}
-                disabled={loading} // Disable the button if loading
+                onClick={() => handleSelectModel("fhe")}
+                disabled={loading}
               >
-                Another Option
+                Full Homomorphic encryption
               </button>
               <button
                 className="type-btn"
-                onClick={() => handleSelectModel("Final Option")}
-                disabled={loading} // Disable the button if loading
+                onClick={() => handleSelectModel("phe")}
+                disabled={loading}
               >
-                Final Option
+                Partial Homomorphic encryption
               </button>
             </div>
             <button
               onClick={handleCloseModal}
               className="close-btn"
-              disabled={loading} // Disable the button if loading
+              disabled={loading}
             >
               Cancel
             </button>
