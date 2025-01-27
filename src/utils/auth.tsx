@@ -56,6 +56,11 @@ export const auth = async ({
       err?.response?.data?.message || err?.message || "Something went wrong!";
     console.log(errorMessage, "error cocured");
     toast.error(errorMessage);
-    return { type: "unknown", data: errorMessage } as IStatus;
+    const status = { type: "unknown", data: errorMessage } as IStatus;
+    console.log(err);
+    if (err?.status) {
+      status.status = err?.status;
+    }
+    return status;
   }
 };

@@ -23,7 +23,6 @@ const Login = () => {
   const handleSubmit = async (values: any) => {
     const res = await login(values.username, values.password);
     if (res.type === "sucess") {
-      console.log("lgoin");
       setUser({
         username: res.data?.username,
         id: res.data?.id,

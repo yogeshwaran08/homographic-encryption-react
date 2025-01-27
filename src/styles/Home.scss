@@ -1,5 +1,6 @@
 $primary-color: black;
 $background-color: #ebeee6;
+$logout-color: #f24b2e;
 
 html,
 body {
@@ -29,24 +30,29 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 10px;
   }
 
-  .upload-btn {
+  .btn {
     padding: 12px 20px;
     border: none;
-    background-color: $primary-color;
-    color: $background-color;
     font-size: 16px;
     cursor: pointer;
     position: relative;
     z-index: 1;
     overflow: hidden;
     transition: background-color 0.3s ease;
+    border-radius: 10px;
 
     &:hover {
       background-color: $primary-color;
       box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4);
     }
+  }
+
+  .btn.upload-btn {
+    background-color: $primary-color;
+    color: $background-color;
 
     .file-input {
       position: absolute;
@@ -57,6 +63,11 @@ body {
       opacity: 0;
       cursor: pointer;
     }
+  }
+
+  .btn.logout-btn {
+    background-color: $logout-color;
+    color: $background-color;
   }
 
   .file-list {
@@ -154,6 +165,13 @@ body {
       font-size: 18px;
       margin-bottom: 20px;
       color: $primary-color;
+    }
+
+    .btns {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-items: center;
     }
 
     .button-grid {

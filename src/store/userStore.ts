@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { IUser } from "../types/customTypes";
+import { NavigateFunction } from "react-router-dom";
 
 interface IUserStore {
   user: IUser | null;
   fetchLocal: () => void;
   setUser: (user: any) => void;
-  logout: () => void;
+  logout: (navigate: NavigateFunction) => void;
 }
 
 const useUserStore = create<IUserStore>((set) => ({
@@ -29,9 +30,10 @@ const useUserStore = create<IUserStore>((set) => ({
     console.log("used", user);
   },
 
-  logout: () => {
-    localStorage.removeItem("user");
+  logout: (navigate) => {
+    localStorage.clear();
     set({ user: null });
+    navigate("/login");
   },
 }));
 
