@@ -59,14 +59,17 @@ const Home = () => {
         url: url,
         data,
       });
+      setShowAlgo(false);
+      setLoading(false);
       if (res.type == "sucess") {
         setFiles((prev) => [...prev, ...(res.data?.files || [])]);
         setMetrics(res.data?.metrics);
+      } else {
+        throw Error("Response error");
       }
-      setShowAlgo(false);
-      setLoading(false);
     } else {
       toast.warning("Token error");
+      throw Error("Token error");
     }
   };
 

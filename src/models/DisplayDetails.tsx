@@ -26,9 +26,17 @@ const DisplayDetails: React.FC<IDisplayDetails> = ({
     if (res.type == "sucess") {
       setDecrypted(res.data?.data);
     } else {
-      toast.error("Error on decrypting");
+      throw Error("Error");
     }
     setDisableDec(false);
+  };
+
+  const loadOnDecrypt = () => {
+    toast.promise(decryptData(), {
+      pending: "Decrypting data",
+      success: "Decrypted",
+      error: "Error occred on decryption",
+    });
   };
 
   return (
@@ -44,7 +52,7 @@ const DisplayDetails: React.FC<IDisplayDetails> = ({
           placeholder="decrypted data..."
         ></textarea>
         <div className="btns">
-          <button onClick={decryptData} disabled={disableDec}>
+          <button onClick={loadOnDecrypt} disabled={disableDec}>
             Decrypt
           </button>
           <button onClick={onClose} disabled={isDisabled}>
